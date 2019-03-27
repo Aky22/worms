@@ -1,3 +1,0 @@
-#SWORMS
-
-SIZE: 40 60
