@@ -11,13 +11,6 @@
 
 enum FieldType {AIR, EARTH, WATER, WORM};
 
-class Worm {
-	private:
-		enum direction {LEFT, RIGHT};
-
-
-};
-
 class Field {
 
 	private:
@@ -176,6 +169,28 @@ class Game {
 				j++;
 			}
 			std::cout << std::endl;
+		}
+
+		bool isleft(int step) {
+			return step < 0;
+		}
+
+		void move (int row, int col, int steps) {
+			if(this->map_[row][col].getType() != WORM) {
+				std::cout << "Error";
+			}
+			if(step < -3) step = -3;
+			if(step > 3) step = 3;
+			for(int i = isleft(step) ? -1 : 1; 
+				isleft(step) ? (i >= step) : (i<=step); 
+				isleft(step) ? i-- : i++) 
+			{
+				if(this->map_[row][col + i].getType() != AIR) {
+					if(this->map[row-1][col + i].getType() != AIR) {
+						
+					}
+				}
+			}
 		}
 
 };
