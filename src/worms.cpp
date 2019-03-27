@@ -92,13 +92,13 @@ class Game {
 					    	}
 					    }else {
 					    	if(line.size() == this->board_width_) {
-					    		std::vector<std::string> mapline;
+					    		std::vector<Field> mapline;
 					    		for(char c : line) {
 					    			switch(c) {
-					    				case 'A': mapline.push_back(new Field(AIR)); break;
-					    				case 'E': mapline.push_back(new Field(EARTH)); break;
-					    				case 'W': mapline.push_back(new Field(WATER)); break;
-					    				default: cout << "Error"; return -1; break;
+					    				case 'A': mapline.push_back(Field(AIR)); break;
+					    				case 'E': mapline.push_back(Field(EARTH)); break;
+					    				case 'W': mapline.push_back(Field(WATER)); break;
+					    				default: std::cout << "Error"; return -1; break;
 					    			}
 					    		}
 					    		this->map_.push_back(mapline);
@@ -126,8 +126,8 @@ class Game {
 					std::cout << "Implement fall!";
 				}
 
-				if(this->map_[row + 1][col] == WATER) {
-					this->map_[row][col] == AIR;
+				if(this->map_[row + 1][col].getType() == WATER) {
+					this->map_[row][col].setType(AIR);
 				}
 
 			}
@@ -141,31 +141,41 @@ class Game {
 		}
 
 		void printMap() {
-			std::cout << "Current Map:" << endl;
+			std::cout << "Current Map:" << std::endl;
 			int j = 0;
-			std::cout << std::setw(this->board_width_ + 1);
+			std::cout << std::setw(3);
 			for(int i = 0; i < this->board_width_; i++) {
 				if (j == 10) j = 0;
 				std::cout << j;
 				j++;
 			}
-			std::cout << endl;
+			std::cout << std::endl;
+			int k = 0;
 			for(auto it = this->map_.begin(); it < this->map_.end(); it++) {
 				auto field = *it;
-				std::cout << it << " ";
+				if(k < 10) {
+					std::cout << " " << k << " ";
+				}else {
+					std::cout << k;
+				}
 				for(Field c : field) {
 					std::cout << c.getCharacter(); 
 				}
-				std::cout << " " << it << " " << endl;
+				if(k < 10){
+					std::cout << k << std::endl;
+				}else {
+					std::cout << k << " " << std::endl;
+				}
+				k++;
 			}
 			j = 0;
-			std::cout << std::setw(this->board_width_ + 1);
+			std::cout << std::setw(3);
 			for(int i = 0; i < this->board_width_; i++) {
 				if (j == 10) j = 0;
 				std::cout << j;
 				j++;
 			}
-			std::cout << endl;
+			std::cout << std::endl;
 		}
 
 };
